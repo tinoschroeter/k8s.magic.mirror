@@ -1,0 +1,4 @@
+namespace: mirror
+resources:
+  - mirror.yaml
+  - services.yaml

@@ -1,0 +1,6 @@
+namespace: dev-mirror
+bases:
+  - config.yaml
+  - pvc.yaml
+  - ../base
+  - ingress.yaml

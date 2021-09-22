@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: mirror-ingress
+  namespace: mirror
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    ingress.kubernetes.io/ssl-redirect: "true"
+    ingress.kubernetes.io/auth-type: basic
+    ingress.kubernetes.io/auth-secret: basic-auth
+    ingress.kubernetes.io/auth-realm: 'Authentication Required - admin'
+
+spec:
+  rules:
+  - host: mirror.tino.sh
+    http:
+      paths:
+      - backend:
+          serviceName: mirror-service
+          servicePort: 8080
+
+  tls:
+  - hosts:
+    - mirror.tino.sh
+    secretName: mirror-tino-sh-tls

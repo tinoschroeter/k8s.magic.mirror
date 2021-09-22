@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: mirror-frontend
+  name: mirror-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mirror-frontend
+  template:
+    metadata:
+      labels:
+        app: mirror-frontend
+    spec:
+      containers:
+      - name: mirror-frontend
+        image: registry.tino.sh/mirror
+        envFrom:
+        - configMapRef:
+            name: config
+        volumeMounts:
+        - name: mirror-modules
+          mountPath: /opt/magic_mirror/modules
+        - name: mirror-config
+          mountPath: /opt/magic_mirror/config
+      volumes:
+      - name: mirror-modules
+        persistentVolumeClaim:
+          claimName: mirror-pvc-modules
+      - name: mirror-config
+        persistentVolumeClaim:
+          claimName: mirror-pvc-config
+      nodeSelector:
+        arch: arm64
