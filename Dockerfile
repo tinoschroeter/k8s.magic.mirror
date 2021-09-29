@@ -2,8 +2,7 @@ FROM node:12.22.6-bullseye-slim AS mirror
 
 RUN set -e; \
     apt update; \
-    apt install -y gettext; \
-    rm -rf /var/lib/apt/lists/*
+    apt install gettext git -y
 
 ARG branch=master
 

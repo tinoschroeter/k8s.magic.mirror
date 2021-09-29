@@ -6,7 +6,7 @@ pipeline {
             steps {
                 echo 'Build Dev..'
                 sh '''#!/bin/bash
-                      test -f k3s/dev && exit 0
+                      test -f k3s/dev || echo "no dev environment" && exit 0
                       cd k3s/production/ && skaffold run
                    '''
             }
