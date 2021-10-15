@@ -1,4 +1,4 @@
-FROM node:12.22.6-bullseye-slim AS mirror
+FROM node:12.22-bullseye-slim AS mirror
 
 RUN set -e; \
     apt update; \
